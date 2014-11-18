@@ -1,0 +1,7 @@
+[package]
+name = "gtnw"
+version = "0.0.1"
+authors = ["Farrel Lifson <farrel.lifson@aimred.com>"]
+
+[dependencies.ncurses]
+git = "https://github.com/jeaye/ncurses-rs.git"
