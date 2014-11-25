@@ -31,6 +31,7 @@ fn main() {
 
     loop {
         status_bar.draw();
+        display.draw_reverse("ALERT");
         display.draw("This is a an alert");
     }
     ncurses::endwin();

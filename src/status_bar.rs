@@ -15,13 +15,13 @@ impl StatusBar {
     }
 
     pub fn draw(&self) {
-        ncurses::wattr_on(self.window,ncurses::A_BOLD()|ncurses::A_REVERSE());
+        ncurses::wattr_on(self.window,ncurses::A_REVERSE());
 
         self.draw_bar();
         self.draw_defcon();
         self.draw_date();
 
-        ncurses::wattr_off(self.window,ncurses::A_BOLD()|ncurses::A_REVERSE());
+        ncurses::wattr_off(self.window,ncurses::A_REVERSE());
         ncurses::wrefresh(self.window);
     }
 

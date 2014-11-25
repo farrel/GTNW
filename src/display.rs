@@ -20,4 +20,11 @@ impl Display {
         ncurses::wprintw(self.window, "\n");
         ncurses::wrefresh(self.window);
     }
+
+    pub fn draw_reverse(&self, text: &str) {
+        ncurses::wattr_on(self.window, ncurses::A_REVERSE());
+        self.draw(text);
+        ncurses::wattr_off(self.window, ncurses::A_REVERSE());
+
+    }
 }
