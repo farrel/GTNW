@@ -1,16 +1,14 @@
-extern crate ncurses;
 extern crate std;
+extern crate ncurses;
 
 pub struct Display {
-    pub window: ncurses::WINDOW,
-    pub height: i32,
-    pub width: i32
+    pub window: ncurses::WINDOW
 }
 
 impl Display {
     pub fn initialise(&self) {
         ncurses::scrollok(self.window, true);
-        ncurses::wmove(self.window, self.height - 1, 0);
+        ncurses::wmove(self.window, ncurses::getmaxy(self.window) - 1, 0);
     }
 
     pub fn draw(&self, text: &str) {

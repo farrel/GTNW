@@ -1,6 +1,10 @@
 extern crate ncurses;
 extern crate gtnw;
 
+use gtnw::display::Display;
+use gtnw::status_bar::StatusBar;
+use gtnw::command_window::CommandWindow;
+
 fn initialise_ncurses() {
     ncurses::initscr();
     ncurses::noecho();
@@ -16,21 +20,16 @@ fn main() {
 
     ncurses::getmaxyx(ncurses::stdscr, &mut max_y, &mut max_x);
 
-    let display = gtnw::display::Display { window:  ncurses::newwin(max_y - 2,max_x,0,0), height: max_y - 2, width: max_x };
+    let display = Display { window:  ncurses::newwin(max_y - 2,max_x,0,0)};
     display.initialise();
 
-    let input_window = ncurses::newwin(1,max_x,max_y - 1,0);
+    let command_window = CommandWindow{ window: ncurses::newwin(1,max_x,max_y - 1,0)};
+    command_window.initialise();
 
-    let status_bar_window   = ncurses::newwin(1,max_x,max_y - 2,0);
-    let status_bar = gtnw::status_bar::StatusBar { window: status_bar_window, defcon: 5 };
+    let status_bar = StatusBar { window: ncurses::newwin(1,max_x,max_y - 2,0), defcon: 5 };
     status_bar.initialise();
 
-
-    ncurses::waddstr(input_window,">>");
-    ncurses::wrefresh(input_window);
-
-
-    for x in range(0i32, 200i32) {
+    loop {
         status_bar.draw();
         display.draw("This is a an alert");
     }
