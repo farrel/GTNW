@@ -8,7 +8,6 @@ impl CommandWindow {
     pub fn new() -> CommandWindow {
         let command_window = CommandWindow { window: ncurses::newwin(1, ncurses::getmaxx(ncurses::stdscr), ncurses::getmaxy(ncurses::stdscr) - 1, 0) };
 
-        ncurses::scrollok(command_window.window, true);
         command_window.draw();
         command_window
     }
