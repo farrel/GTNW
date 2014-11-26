@@ -11,7 +11,9 @@ fn current_time() -> String {
 }
 
 impl StatusBar {
-    pub fn initialise(&self) {
+    pub fn new() -> StatusBar {
+        StatusBar { window: ncurses::newwin(1,ncurses::getmaxx(ncurses::stdscr),ncurses::getmaxy(ncurses::stdscr) - 2,0),
+        defcon: 5 } 
     }
 
     pub fn draw(&self) {

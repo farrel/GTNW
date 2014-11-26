@@ -15,24 +15,16 @@ fn main() {
 
 
     /* Get the screen bounds. */
-    let mut max_x = 0;
-    let mut max_y = 0;
 
-    ncurses::getmaxyx(ncurses::stdscr, &mut max_y, &mut max_x);
-
-    let display = Display { window:  ncurses::newwin(max_y - 2,max_x,0,0)};
-    display.initialise();
-
-    let command_window = CommandWindow{ window: ncurses::newwin(1,max_x,max_y - 1,0)};
-    command_window.initialise();
-
-    let status_bar = StatusBar { window: ncurses::newwin(1,max_x,max_y - 2,0), defcon: 5 };
-    status_bar.initialise();
+    let display = Display::new();
+    let command_window = CommandWindow::new();
+    let status_bar = StatusBar::new();
 
     loop {
         status_bar.draw();
         display.draw_reverse("ALERT");
         display.draw("This is a an alert");
+        //command_window.get_command();
     }
     ncurses::endwin();
 }
