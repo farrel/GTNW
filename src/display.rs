@@ -1,17 +1,19 @@
 extern crate std;
 extern crate ncurses;
 
+use ncurses::*;
+
 pub struct Display {
-    pub window: ncurses::WINDOW
+    pub window: WINDOW
 }
 
 impl Display {
 
     pub fn new() -> Display {
-        let display = Display { window: ncurses::newwin(ncurses::getmaxy(ncurses::stdscr) - 2,ncurses::getmaxx(ncurses::stdscr),0,0) };
+        let display = Display { window: newwin(getmaxy(stdscr) - 2,getmaxx(stdscr),0,0) };
 
-        ncurses::scrollok(display.window, true);
-        ncurses::wmove(display.window, ncurses::getmaxy(display.window) - 1, 0);
+        scrollok(display.window, true);
+        wmove(display.window, getmaxy(display.window) - 1, 0);
 
         display
     }
@@ -19,17 +21,17 @@ impl Display {
     pub fn draw(&self, text: &str) {
         for character in text.chars(){
             std::io::timer::sleep(std::time::duration::Duration::milliseconds(50));
-            ncurses::waddch(self.window, character as u32);
-            ncurses::wrefresh(self.window);
+            waddch(self.window, character as u32);
+            wrefresh(self.window);
         }
-        ncurses::wprintw(self.window, "\n");
-        ncurses::wrefresh(self.window);
+        wprintw(self.window, "\n");
+        wrefresh(self.window);
     }
 
     pub fn draw_reverse(&self, text: &str) {
-        ncurses::wattr_on(self.window, ncurses::A_REVERSE());
+        wattr_on(self.window, A_REVERSE());
         self.draw(text);
-        ncurses::wattr_off(self.window, ncurses::A_REVERSE());
+        wattr_off(self.window, A_REVERSE());
     }
 }
 

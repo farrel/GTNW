@@ -1,12 +1,17 @@
+#![feature(globs)]
 extern crate ncurses;
-extern crate gtnw;
 
-use gtnw::display::Display;
-use gtnw::status_bar::StatusBar;
-use gtnw::command_window::CommandWindow;
+use ncurses::*;
+use display::Display;
+use status_bar::StatusBar;
+use command_window::CommandWindow;
+
+mod command_window;
+mod display;
+mod status_bar;
 
 fn initialise_ncurses() {
-    ncurses::initscr();
+    initscr();
     //ncurses::noecho();
 }
 
@@ -27,5 +32,5 @@ fn main() {
         command_window.get_command();
         status_bar.draw();
     }
-    ncurses::endwin();
+    endwin();
 }
