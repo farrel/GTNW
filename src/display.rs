@@ -19,13 +19,13 @@ impl Display {
     }
 
     pub fn draw(&self, text: &str) {
+        wprintw(self.window, "\n");
         for character in text.chars(){
             std::io::timer::sleep(std::time::duration::Duration::milliseconds(50));
             waddch(self.window, character as u32);
             wrefresh(self.window);
         }
-        wprintw(self.window, "\n");
-        wrefresh(self.window);
+        std::io::timer::sleep(std::time::duration::Duration::milliseconds(750));
     }
 
     pub fn draw_reverse(&self, text: &str) {
@@ -34,4 +34,3 @@ impl Display {
         wattr_off(self.window, A_REVERSE());
     }
 }
-
