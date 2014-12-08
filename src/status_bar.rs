@@ -9,7 +9,7 @@ pub struct StatusBar {
 }
 
 fn current_time() -> String {
-    time::strftime("%d/%m/%Y %H:%M:%S",&time::now())
+    time::strftime("%d/%m/%Y %H:%M",&time::now())
 }
 
 impl StatusBar {

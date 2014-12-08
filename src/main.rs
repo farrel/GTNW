@@ -18,19 +18,30 @@ fn initialise_ncurses() {
 fn main() {
     initialise_ncurses();
 
-
     /* Get the screen bounds. */
-
-    let display = Display::new();
+    let display        = Display::new();
     let command_window = CommandWindow::new();
-    let status_bar = StatusBar::new();
+    let status_bar     = StatusBar::new();
 
-    loop {
-        status_bar.draw();
-        display.draw_reverse("ALERT");
-        display.draw("This is a an alert");
-        command_window.get_command();
-        status_bar.draw();
-    }
+    let abort = false;
+    let display_loop = proc() {
+        loop{
+            status_bar.draw();
+            display.draw_reverse("ALERT");
+            display.draw("This is a an alert");
+            if abort { break; }
+        }
+    };
+
+    let command_loop = proc(){
+        loop{
+            command_window.draw();
+            command_window.get_command();
+        }
+    };
+
+    spawn(display_loop);
+    spawn(command_loop);
+
     endwin();
 }
