@@ -25,19 +25,19 @@ fn main() {
 
     let abort = false;
     let display_loop = proc() {
-        loop{
+        loop {
             status_bar.draw();
             display.draw_reverse("ALERT");
             display.draw("This is a an alert");
             if abort { break; }
-        }
+        };
     };
 
-    let command_loop = proc(){
-        loop{
+    let command_loop = proc() {
+        loop {
             command_window.draw();
             command_window.get_command();
-        }
+         };
     };
 
     spawn(display_loop);
